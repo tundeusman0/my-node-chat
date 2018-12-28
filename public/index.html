@@ -7,8 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1>Chat App</h1>
+    <h1>T.mani Chat App</h1>
+    <ol id="messages"></ol>
+    <form action="" id="message-form">
+        <input type="text" name="message" placeholder="Message"/>
+        <button>Send</button>
+    </form>
     <script src="socket.io/socket.io.js"></script>
+    <script src="/libs/events.js"></script>
     <script src="/js/index.js"></script>
 </body>
 </html>
