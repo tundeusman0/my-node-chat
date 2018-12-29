@@ -9,9 +9,16 @@ socket.on('disconnect', function () {
 })
 socket.on('newMessage',(message)=>{
     let formattedTime = moment(message.createdAt).format('h:mm a')
+    let template = document.querySelector('#message-template').innerHTML
+    let html = Mustache.render(template,{
+        text: message.text,
+        from: message.fromm,
+        createdAt: formattedTime
+    })
     let li = document.createElement('li')
-    li.innerHTML = `${message.fromm} ${formattedTime}: ${message.text} `
+    li.innerHTML = html
     list.appendChild(li)
+
 })
 
 button.addEventListener('click', (e) => {
@@ -46,13 +53,13 @@ locationButton.addEventListener('click',()=>{
 })
 socket.on('newLocationMessage',function(message){
     let formattedTime = moment(message.createdAt).format('h:mm a')
+    let template = document.querySelector('#location-message-template').innerHTML
+    let html = Mustache.render(template, {
+        from: message.mssg,
+        url: message.url,
+        createdAt: formattedTime
+    })
     let li = document.createElement('li')
-    let a = document.createElement('a')
-    let linkText = document.createTextNode("My current location");
-    li.innerHTML = `${message.mssg} ${formattedTime}`
-    a.appendChild(linkText)
-    a.setAttribute('target',"_blank")
-    a.href = `${message.url}`
-    li.appendChild(a)
+    li.innerHTML = html
     list.appendChild(li)
 })
