@@ -1,3 +1,4 @@
+// 
 let socket = io();
 socket.on('connect', function () {
     console.log('connected to server')
@@ -7,9 +8,9 @@ socket.on('disconnect', function () {
     console.log('disconnected from server')
 })
 socket.on('newMessage',(message)=>{
-    console.log('newMessage', message)
+    let formattedTime = moment(message.createdAt).format('h:mm a')
     let li = document.createElement('li')
-    li.innerHTML = `${message.fromm}: ${message.text} `
+    li.innerHTML = `${message.fromm} ${formattedTime}: ${message.text} `
     list.appendChild(li)
 })
 
@@ -44,10 +45,11 @@ locationButton.addEventListener('click',()=>{
     })
 })
 socket.on('newLocationMessage',function(message){
+    let formattedTime = moment(message.createdAt).format('h:mm a')
     let li = document.createElement('li')
     let a = document.createElement('a')
     let linkText = document.createTextNode("My current location");
-    li.innerHTML = `${message.mssg}`
+    li.innerHTML = `${message.mssg} ${formattedTime}`
     a.appendChild(linkText)
     a.setAttribute('target',"_blank")
     a.href = `${message.url}`
