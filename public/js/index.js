@@ -19,6 +19,7 @@ button.addEventListener('click', (e) => {
         from:'User',
         text:input.value
     },function(){
+        input.value = ''
     })
 })
 
@@ -26,16 +27,22 @@ locationButton.addEventListener('click',()=>{
     if(!navigator.geolocation){
         return alert('Geolocation not supported by your browser.')
     }
+    locationButton.disabled = true && 
+    (locationButton.innerHTML = 'Sending location ...')
+
     navigator.geolocation.getCurrentPosition(function(position){
+        locationButton.innerHTML = 'Send location'
+        locationButton.disabled = false
         socket.emit('createLocationMessage',{
             latitude:position.coords.latitude,
             longitude:position.coords.longitude
         })
     },function(){
+        locationButton.disabled = true
+        locationButton.innerHTML = 'Send location'
         alert('Unable to fetch location')
     })
 })
-    // < a target = "_blank" > My current Location</a >
 socket.on('newLocationMessage',function(message){
     let li = document.createElement('li')
     let a = document.createElement('a')

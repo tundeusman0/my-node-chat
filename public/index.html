@@ -5,15 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
-    <h1>T.mani Chat App</h1>
-    <ol id="messages"></ol>
-    <form action="" id="message-form">
-        <input type="text" name="message" placeholder="Message"/>
-        <button>Send</button>
-    </form>
-    <button id="send-location">Send Location</button>
+<body class="chat">
+    <!-- <h1>T.mani Chat App</h1> -->
+    <div class="chat__sidebar">
+        <h3>People Online</h3>
+        <div id="users"></div>
+    </div>
+    <div class="chat__main">
+        <ol id="messages" class="chat__messages"</ol>
+
+        <div class="chat__footer">
+            <form action="" id="message-form">
+                <input type="text" name="message" placeholder="Message" autofocus autocomplete="off"/>
+                <button>Send</button>
+            </form>
+            <button id="send-location">Send location</button>
+        </div>
+
+    </div>
+    
     <script src="socket.io/socket.io.js"></script>
     <script src="/libs/events.js"></script>
     <script src="/js/index.js"></script>
