@@ -37,7 +37,6 @@ socket.on('disconnect', function () {
 })
 
 socket.on('updateUserList',function(users){
-    console.log(users)
     let ol = document.createElement('ol')
     users.forEach(function(user){
         ol.appendChild(document.createElement('li')).innerHTML = user
@@ -62,7 +61,6 @@ socket.on('newMessage',(message)=>{
 button.addEventListener('click', (e) => {
     e.preventDefault()
     socket.emit('createMessage',{
-        from:'User',
         text:input.value
     },function(){
         input.value = ''
