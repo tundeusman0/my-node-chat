@@ -1,5 +1,5 @@
 // 
-const button = document.querySelector('button')
+const button = document.getElementById('send-message')
 const input = document.querySelector('input')
 const list = document.querySelector('ol')
 const locationButton = document.getElementById('send-location')
@@ -21,11 +21,28 @@ function scrolltobottom (){
 
 let socket = io();
 socket.on('connect', function () {
-    console.log('connected to server')
+    let params = deparam(window.location.search)
+    socket.emit('join',params,function(err){
+        if(err){
+            alert(err)
+            window.location.href = '/'
+        }else{
+            console.log('No error')
+        }
+    })
 })
 
 socket.on('disconnect', function () {
     console.log('disconnected from server')
+})
+
+socket.on('updateUserList',function(users){
+    console.log(users)
+    let ol = document.createElement('ol')
+    users.forEach(function(user){
+        ol.appendChild(document.createElement('li')).innerHTML = user
+    })
+    document.getElementById('users').innerHTML = ol.innerHTML
 })
 socket.on('newMessage',(message)=>{
     let formattedTime = moment(message.createdAt).format('h:mm a')
